@@ -11,5 +11,14 @@
         "type": "String"
       }
     }
+  },
+  "episodes": "Episodes",
+  "season": "Season {season}",
+  "@season": {
+    "placeholders": {
+      "season": {
+        "type": "String"
+      }
+    }
   }
 }

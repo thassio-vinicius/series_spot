@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:series_spot/features/home/data/models/show_query_model.dart';
 import 'package:series_spot/features/home/domain/entities/show_entity.dart';
-import 'package:series_spot/features/home/presentation/cubits/show_query_model.dart';
 
 class ShowQueryEntity extends Equatable {
   final double score;

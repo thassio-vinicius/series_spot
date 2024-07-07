@@ -9,32 +9,32 @@ class EpisodeEntity extends Equatable {
   final String url;
   final String name;
   final int season;
-  final int number;
-  final String type;
-  final String airdate;
-  final String airtime;
-  final String airstamp;
-  final int runtime;
-  final RatingEntity rating;
-  final ImageEntity image;
-  final String summary;
-  final LinksEntity links;
+  final int? number;
+  final String? type;
+  final String? airDate;
+  final String? airtime;
+  final String? airStamp;
+  final int? runtime;
+  final RatingEntity? rating;
+  final ImageEntity? image;
+  final String? summary;
+  final LinksEntity? links;
 
   const EpisodeEntity({
     required this.id,
     required this.url,
     required this.name,
     required this.season,
-    required this.number,
-    required this.type,
-    required this.airdate,
-    required this.airtime,
-    required this.airstamp,
-    required this.runtime,
-    required this.rating,
-    required this.image,
-    required this.summary,
-    required this.links,
+    this.number,
+    this.type,
+    this.airDate,
+    this.airtime,
+    this.airStamp,
+    this.runtime,
+    this.rating,
+    this.image,
+    this.summary,
+    this.links,
   });
 
   factory EpisodeEntity.fromModel(EpisodeModel model) {
@@ -45,14 +45,15 @@ class EpisodeEntity extends Equatable {
       season: model.season,
       number: model.number,
       type: model.type,
-      airdate: model.airDate,
+      airDate: model.airDate,
       airtime: model.airtime,
-      airstamp: model.airStamp,
+      airStamp: model.airStamp,
       runtime: model.runtime,
-      rating: RatingEntity.fromModel(model.rating),
-      image: ImageEntity.fromModel(model.image),
+      rating:
+          model.rating == null ? null : RatingEntity.fromModel(model.rating!),
+      image: model.image == null ? null : ImageEntity.fromModel(model.image!),
       summary: model.summary,
-      links: LinksEntity.fromModel(model.links),
+      links: model.links == null ? null : LinksEntity.fromModel(model.links!),
     );
   }
 
@@ -64,9 +65,9 @@ class EpisodeEntity extends Equatable {
         season,
         number,
         type,
-        airdate,
+        airDate,
         airtime,
-        airstamp,
+        airStamp,
         runtime,
         rating,
         image,

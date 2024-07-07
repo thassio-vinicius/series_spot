@@ -1,11 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:series_spot/core/utils/colors.dart';
-import 'package:series_spot/features/home/domain/entities/show_entity.dart';
+import 'package:series_spot/features/home/domain/entities/image_entity.dart';
 
 class FadingImageBackground extends StatelessWidget {
-  final ShowEntity show;
-  const FadingImageBackground(this.show, {super.key});
+  final int heroTag;
+  final ImageEntity? image;
+  final double placeholderHeightPercentage;
+  final double imageHeightPercentage;
+  final BoxFit fit;
+
+  const FadingImageBackground({
+    required this.heroTag,
+    required this.placeholderHeightPercentage,
+    required this.imageHeightPercentage,
+    this.fit = BoxFit.fitWidth,
+    this.image,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +31,11 @@ class FadingImageBackground extends StatelessWidget {
       },
       blendMode: BlendMode.dstIn,
       child: Hero(
-        tag: show.id,
-        child: show.image == null
+        tag: heroTag,
+        child: image == null
             ? SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.5,
+                height: MediaQuery.sizeOf(context).height *
+                    placeholderHeightPercentage,
                 child: Center(
                   child: Icon(
                     Icons.tv_off,
@@ -32,12 +45,14 @@ class FadingImageBackground extends StatelessWidget {
                 ),
               )
             : CachedNetworkImage(
-                imageUrl: show.image!.original,
+                imageUrl: image!.original,
                 progressIndicatorBuilder: (context, url, progress) => SizedBox(
-                  height: MediaQuery.sizeOf(context).height * 0.7,
+                  height:
+                      MediaQuery.sizeOf(context).height * imageHeightPercentage,
                 ),
                 errorWidget: (context, url, error) => SizedBox(
-                  height: MediaQuery.sizeOf(context).height * 0.7,
+                  height:
+                      MediaQuery.sizeOf(context).height * imageHeightPercentage,
                   child: Center(
                     child: Icon(
                       Icons.tv_off,
@@ -47,7 +62,7 @@ class FadingImageBackground extends StatelessWidget {
                   ),
                 ),
                 width: MediaQuery.sizeOf(context).width,
-                fit: BoxFit.fitWidth,
+                fit: fit,
               ),
       ),
     );

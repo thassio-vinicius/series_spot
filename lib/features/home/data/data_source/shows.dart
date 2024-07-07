@@ -1,7 +1,7 @@
 import 'package:series_spot/core/http/apis.dart';
 import 'package:series_spot/core/http/client.dart';
 import 'package:series_spot/features/home/data/models/show_model.dart';
-import 'package:series_spot/features/home/presentation/cubits/show_query_model.dart';
+import 'package:series_spot/features/home/data/models/show_query_model.dart';
 
 class FetchShowsDataSource {
   final HTTP _http;

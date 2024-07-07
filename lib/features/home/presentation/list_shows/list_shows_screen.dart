@@ -8,18 +8,18 @@ import 'package:series_spot/core/presentation/widgets/blur_blackground.dart';
 import 'package:series_spot/core/presentation/widgets/colored_safearea.dart';
 import 'package:series_spot/core/presentation/widgets/my_text.dart';
 import 'package:series_spot/core/utils/colors.dart';
-import 'package:series_spot/features/home/presentation/components/tv_show_card.dart';
-import 'package:series_spot/features/home/presentation/cubits/fetch_shows_cubit.dart';
+import 'package:series_spot/features/home/presentation/list_shows/components/tv_show_card.dart';
+import 'package:series_spot/features/home/presentation/list_shows/cubit/fetch_shows_cubit.dart';
 import 'package:series_spot/l10n/global_app_localizations.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class ListShowsScreen extends StatefulWidget {
+  const ListShowsScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ListShowsScreen> createState() => _ListShowsScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ListShowsScreenState extends State<ListShowsScreen> {
   final TextEditingController _queryController = TextEditingController();
 
   Timer? _debounce;
