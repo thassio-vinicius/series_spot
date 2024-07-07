@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:series_spot/core/injector.dart';
 import 'package:series_spot/core/presentation/widgets/my_text.dart';
 import 'package:series_spot/features/home/domain/entities/show_entity.dart';
+import 'package:series_spot/l10n/global_app_localizations.dart';
 
 class TVShowHeaderRow extends StatelessWidget {
   final ShowEntity show;
@@ -35,6 +37,7 @@ class TVShowHeaderRow extends StatelessWidget {
   }
 
   String? airingTimes() {
+    final intl = sl<GlobalAppLocalizations>().current;
     if (show.schedule == null) return null;
 
     String airingDays = '';
@@ -44,7 +47,9 @@ class TVShowHeaderRow extends StatelessWidget {
           airingDay == show.schedule!.days.last ? airingDay : '$airingDay, ';
     }
 
-    return '$airingDays ${show.schedule?.time.isEmpty ?? true ? '' : 'at ${show.schedule!.time}'}';
+    return show.schedule?.time.isEmpty ?? true
+        ? airingDays
+        : intl.airingTimes(show.schedule!.time, airingDays);
   }
 
   String? buildSmallHeader() {

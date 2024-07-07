@@ -1,5 +1,15 @@
 {
   "appName": "Series Spot",
-  "searchHint": "Search"
-
+  "searchHint": "Search",
+  "airingTimes": "{days} at {time}",
+  "@airingTimes": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  }
 }
