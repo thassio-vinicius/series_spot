@@ -27,6 +27,9 @@ class TVShowDetailsScreen extends StatefulWidget {
 }
 
 class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
+  int _selectedSeason = 1;
+  final _episodesController = ScrollController();
+
   Positioned _backArrow() {
     return Positioned(
       top: 4,
@@ -115,6 +118,11 @@ class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
                         }
 
                         if (state is EpisodesLoadedState) {
+                          final seasonedEpisodes = state.episodes
+                              .where((element) =>
+                                  element.season == _selectedSeason)
+                              .toList();
+
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -126,22 +134,64 @@ class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
                                       MyTextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
+                              SizedBox(height: 12),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 24.0),
+                                child: DropdownButton<int>(
+                                    value: _selectedSeason,
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    dropdownColor: AppColors.dropdownBackground,
+                                    underline: Container(),
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: Colors.white,
+                                    ),
+                                    items: List.generate(
+                                      state.episodes.last.season,
+                                      (index) => DropdownMenuItem(
+                                        value: index + 1,
+                                        child: MyText(
+                                          intl.season((index + 1).toString()),
+                                          style: MyTextStyle(
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    onChanged: (season) {
+                                      setState(() {
+                                        _selectedSeason = season ?? 1;
+                                        _episodesController.animateTo(
+                                          0,
+                                          duration: kThemeAnimationDuration,
+                                          curve: Curves.easeIn,
+                                        );
+                                      });
+                                    }),
+                              ),
                               const SizedBox(height: 8),
                               SizedBox(
                                 height:
                                     MediaQuery.sizeOf(context).height * 0.25,
                                 child: ListView.builder(
-                                  padding: EdgeInsets.symmetric(horizontal: 24),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 24),
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: state.episodes.length,
+                                  itemCount: seasonedEpisodes.length,
+                                  controller: _episodesController,
                                   itemBuilder: (context, index) => Padding(
                                     padding: EdgeInsets.only(
-                                      right: index == state.episodes.length - 1
-                                          ? 0
-                                          : 16.0,
+                                      right:
+                                          index == seasonedEpisodes.length - 1
+                                              ? 0
+                                              : 16.0,
                                     ),
                                     child: EpisodeCard(
-                                      episode: state.episodes[index],
+                                      episode: seasonedEpisodes[index],
                                     ),
                                   ),
                                 ),
