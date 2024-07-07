@@ -1,6 +1,6 @@
-# Series Spots App
+# Series Spot App
 
-Series Spots Mobile app developed with Flutter and the [TVMaze API](https://www.tvmaze.com/api). It displays information regarding TV Shows and TV Episodes from TVMaze's huge database, utilizing the API's full potential with infinite scroll pagination to provide a seamless user experience.  
+Series Spot Mobile app developed with Flutter and the [TVMaze API](https://www.tvmaze.com/api). It displays information regarding TV Shows and TV Episodes from TVMaze's huge database, utilizing the API's full potential with infinite scroll pagination to provide a seamless user experience.  
 
 Built in accordance with Flutter's BLoC pattern and Clean Arch principles, below are the main packages used and their responsibility:
 
