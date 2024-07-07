@@ -21,44 +21,45 @@ class TVShowCard extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-              flex: 5,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: borderRadius,
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black38,
-                      offset: Offset(2, 2),
-                    ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: borderRadius,
-                  child: Hero(
-                    tag: show.id,
-                    child: show.image == null
-                        ? Container(
-                            decoration: BoxDecoration(
-                              borderRadius: borderRadius,
-                              border: Border.all(
-                                width: 1.5,
-                                color: AppColors.containerBackground
-                                    .withOpacity(0.55),
-                              ),
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.tv_off,
-                                color: AppColors.containerBackground
-                                    .withOpacity(0.55),
-                                size: 36,
-                              ),
-                            ),
-                          )
-                        : CachedNetworkImage(imageUrl: show.image!.medium),
+            flex: 5,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: borderRadius,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black38,
+                    offset: Offset(2, 2),
                   ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: borderRadius,
+                child: Hero(
+                  tag: show.id,
+                  child: show.image == null
+                      ? Container(
+                          decoration: BoxDecoration(
+                            borderRadius: borderRadius,
+                            border: Border.all(
+                              width: 1.5,
+                              color: AppColors.containerBackground
+                                  .withOpacity(0.55),
+                            ),
+                          ),
+                          child: Center(
+                            child: Icon(
+                              Icons.tv_off,
+                              color: AppColors.containerBackground
+                                  .withOpacity(0.55),
+                              size: 36,
+                            ),
+                          ),
+                        )
+                      : CachedNetworkImage(imageUrl: show.image!.medium),
                 ),
-              )),
+              ),
+            ),
+          ),
           const SizedBox(height: 8),
           Expanded(
             flex: 2,

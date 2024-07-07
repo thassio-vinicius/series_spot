@@ -126,7 +126,7 @@ class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
                                       MyTextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               SizedBox(
                                 height:
                                     MediaQuery.sizeOf(context).height * 0.25,
@@ -136,12 +136,13 @@ class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
                                   itemCount: state.episodes.length,
                                   itemBuilder: (context, index) => Padding(
                                     padding: EdgeInsets.only(
-                                        right:
-                                            index == state.episodes.length - 1
-                                                ? 0
-                                                : 24.0),
+                                      right: index == state.episodes.length - 1
+                                          ? 0
+                                          : 16.0,
+                                    ),
                                     child: EpisodeCard(
-                                        episode: state.episodes[index]),
+                                      episode: state.episodes[index],
+                                    ),
                                   ),
                                 ),
                               )
