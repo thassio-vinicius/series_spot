@@ -7,7 +7,6 @@ import 'package:series_spot/features/home/data/data_source/shows.dart';
 import 'package:series_spot/features/home/data/models/show_model.dart';
 import 'package:series_spot/features/home/data/models/show_query_model.dart';
 import 'package:series_spot/features/home/domain/entities/show_entity.dart';
-import 'package:series_spot/features/home/domain/entities/show_query_entity.dart';
 import 'package:series_spot/features/home/domain/repositories/shows_repository.dart';
 
 class MockFetchShowsDataSource extends Mock implements FetchShowsDataSource {}
@@ -34,9 +33,6 @@ void main() {
     ShowQueryModel(show: tShowModelList[0], score: 0),
     ShowQueryModel(show: tShowModelList[1], score: 0),
   ];
-  final tShowQueryEntityList =
-      tShowQueryModelList.map((e) => ShowQueryEntity.fromModel(e)).toList();
-  final tSearchResult = tShowQueryEntityList.map((e) => e.show).toList();
 
   group('fetchShows', () {
     test(
