@@ -27,7 +27,7 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = backgroundColor ?? AppColors.primary;
+    final color = backgroundColor ?? AppColors.containerBackground;
     final borderRadius = BorderRadius.circular(radius);
     const padding = EdgeInsets.all(16);
     const height = 56.0;
@@ -65,7 +65,7 @@ class PrimaryButton extends StatelessWidget {
             padding: EdgeInsets.zero,
             onPressed: isLoading ? null : onPressed,
             color: color,
-            disabledColor: AppColors.primary.withOpacity(0.3),
+            disabledColor: AppColors.containerBackground.withOpacity(0.3),
             borderRadius: borderRadius,
             child: child,
           )
@@ -73,7 +73,9 @@ class PrimaryButton extends StatelessWidget {
             onPressed: isLoading ? null : onPressed,
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
-                isEnabled ? color : AppColors.primary.withOpacity(0.3),
+                isEnabled
+                    ? color
+                    : AppColors.containerBackground.withOpacity(0.3),
               ),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(

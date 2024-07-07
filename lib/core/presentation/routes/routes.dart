@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:series_spot/core/presentation/routes/route_names.dart';
-import 'package:series_spot/features/splash/presentation/splash_screen.dart';
+import 'package:series_spot/features/home/presentation/home_screen.dart';
 
 class NavigationService {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -9,15 +9,15 @@ class NavigationService {
 
 final router = GoRouter(
   navigatorKey: NavigationService.navigatorKey,
-  initialLocation: RouteNames.splash,
+  initialLocation: RouteNames.home,
   observers: [],
   routes: [
     GoRoute(
-      name: RouteNames.splash,
-      path: RouteNames.splash,
+      name: RouteNames.home,
+      path: RouteNames.home,
       pageBuilder: (context, state) {
         return MaterialPage(
-          child: const SplashScreen(),
+          child: const HomeScreen(),
           name: state.name,
         );
       },

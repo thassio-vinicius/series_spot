@@ -15,7 +15,7 @@ class ColoredSafeArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.primary,
+      color: AppColors.background,
       child: SafeArea(
         bottom: bottom,
         child: child,
