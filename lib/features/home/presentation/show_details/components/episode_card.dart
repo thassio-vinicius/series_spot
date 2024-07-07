@@ -83,7 +83,7 @@ class EpisodeCard extends StatelessWidget {
                     episode.name,
                 style: MyTextStyle(
                   textAlign: TextAlign.center,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),

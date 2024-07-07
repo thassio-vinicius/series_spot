@@ -128,13 +128,14 @@ class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(left: 24.0),
-                                child: MyText.mediumSmall(
+                                child: MyText.medium(
                                   intl.episodes,
-                                  style:
-                                      MyTextStyle(fontWeight: FontWeight.w600),
+                                  style: MyTextStyle(
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
-                              SizedBox(height: 12),
+                              const SizedBox(height: 12),
                               Padding(
                                 padding: const EdgeInsets.only(left: 24.0),
                                 child: DropdownButton<int>(
@@ -146,7 +147,7 @@ class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
                                     ),
                                     dropdownColor: AppColors.dropdownBackground,
                                     underline: Container(),
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.keyboard_arrow_down,
                                       color: Colors.white,
                                     ),
@@ -173,7 +174,7 @@ class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
                                       });
                                     }),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 16),
                               SizedBox(
                                 height:
                                     MediaQuery.sizeOf(context).height * 0.25,
