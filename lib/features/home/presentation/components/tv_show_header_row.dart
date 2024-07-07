@@ -10,66 +10,46 @@ class TVShowHeaderRow extends StatelessWidget {
 
   String? showDuration() {
     if (show.premiered == null && show.ended == null) return null;
-    if (show.premiered == null) {
-      return DateTime.parse(show.ended!).year.toString();
-    }
-    if (show.ended == null) {
-      return DateTime.parse(show.premiered!).year.toString();
-    }
-    return '${DateTime.parse(show.premiered!).year} - ${DateTime.parse(show.ended!).year}';
+    final premieredYear = show.premiered != null
+        ? DateTime.parse(show.premiered!).year.toString()
+        : null;
+    final endedYear =
+        show.ended != null ? DateTime.parse(show.ended!).year.toString() : null;
+    if (premieredYear == null) return endedYear;
+    if (endedYear == null) return premieredYear;
+    return '$premieredYear - $endedYear';
   }
 
   String? genres() {
     if (show.genres?.isEmpty ?? true) return null;
-    String genres = '';
-
-    for (String genre in show.genres!) {
-      genres += genre == show.genres!.last ? genre : '$genre, ';
-    }
-
-    return genres;
+    return show.genres!.join(', ');
   }
 
   String? rating() {
-    if (show.rating?.average == null) return null;
-
-    return '⭐ ${show.rating!.average!}';
+    return show.rating?.average != null ? '⭐ ${show.rating!.average!}' : null;
   }
 
   String? airingTimes() {
     final intl = sl<GlobalAppLocalizations>().current;
     if (show.schedule == null) return null;
-
-    String airingDays = '';
-
-    for (String airingDay in show.schedule!.days) {
-      airingDays +=
-          airingDay == show.schedule!.days.last ? airingDay : '$airingDay, ';
-    }
-
-    return show.schedule?.time.isEmpty ?? true
-        ? airingDays
-        : intl.airingTimes(show.schedule!.time, airingDays);
+    final airingDays = show.schedule!.days.join(', ');
+    return show.schedule?.time.isNotEmpty ?? false
+        ? intl.airingTimes(show.schedule!.time, airingDays)
+        : airingDays;
   }
 
   String? buildSmallHeader() {
-    if (showDuration() == null && rating() == null && genres() == null) {
-      return null;
-    }
+    final duration = showDuration();
+    final genre = genres();
+    final rate = rating();
 
-    if (showDuration() == null) {
-      return genres() == null ? rating() : '${genres()} | ${rating()}';
-    } else if (genres() == null) {
-      return rating() == null
-          ? showDuration()
-          : '${showDuration()} | ${rating()}';
-    } else if (rating() == null) {
-      return genres() == null
-          ? showDuration()
-          : '${showDuration()} | ${genres()}';
-    }
+    final parts = [
+      if (duration != null) duration,
+      if (genre != null) genre,
+      if (rate != null) rate,
+    ];
 
-    return '${showDuration()} | ${genres()} | ${rating()}';
+    return parts.isNotEmpty ? parts.join(' | ') : null;
   }
 
   @override
@@ -83,14 +63,13 @@ class TVShowHeaderRow extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-        if (airingTimes() != null) ...[
+        if (airingTimes() != null)
           MyText.small(
             airingTimes()!,
             style: MyTextStyle(
               textAlign: TextAlign.center,
             ),
           ),
-        ]
       ],
     );
   }
