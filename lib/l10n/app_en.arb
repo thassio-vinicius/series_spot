@@ -17,6 +17,22 @@
   "@season": {
     "placeholders": {
       "season": {
+        "type": "int"
+      }
+    }
+  },
+  "episode": "Episode {episode}",
+  "@episode": {
+    "placeholders": {
+      "episode": {
+        "type": "int"
+      }
+    }
+  },
+  "airedOn": "Aired on {airDate}",
+  "@airedOn": {
+    "placeholders": {
+      "airDate": {
         "type": "String"
       }
     }

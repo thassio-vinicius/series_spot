@@ -1,19 +1,16 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:series_spot/core/injector.dart';
-import 'package:series_spot/core/presentation/routes/my_navigator.dart';
 import 'package:series_spot/core/presentation/widgets/blur_blackground.dart';
 import 'package:series_spot/core/presentation/widgets/colored_safearea.dart';
+import 'package:series_spot/core/presentation/widgets/fading_image_background.dart';
 import 'package:series_spot/core/presentation/widgets/my_text.dart';
+import 'package:series_spot/core/presentation/widgets/stack_back_arrow.dart';
 import 'package:series_spot/core/utils/colors.dart';
 import 'package:series_spot/features/home/domain/entities/show_entity.dart';
 import 'package:series_spot/features/home/presentation/show_details/components/episode_card.dart';
-import 'package:series_spot/features/home/presentation/show_details/components/fading_image_background.dart';
 import 'package:series_spot/features/home/presentation/show_details/components/tv_show_header_row.dart';
 import 'package:series_spot/features/home/presentation/show_details/cubit/fetch_episodes_cubit.dart';
 import 'package:series_spot/l10n/global_app_localizations.dart';
@@ -27,31 +24,8 @@ class TVShowDetailsScreen extends StatefulWidget {
 }
 
 class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
-  int _selectedSeason = 1;
+  int? _selectedSeason;
   final _episodesController = ScrollController();
-
-  Positioned _backArrow() {
-    return Positioned(
-      top: 4,
-      left: 4,
-      child: IconButton(
-        onPressed: () => MyNavigator(context).pop(),
-        icon: Container(
-          decoration: BoxDecoration(
-            color: AppColors.containerBackground.withOpacity(0.5),
-            shape: BoxShape.circle,
-          ),
-          padding: const EdgeInsets.all(4),
-          width: 36,
-          height: 36,
-          child: Icon(
-            Platform.isIOS ? CupertinoIcons.back : Icons.arrow_back,
-            color: Colors.black,
-          ),
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +72,12 @@ class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
                   BlocProvider(
                     create: (_) =>
                         EpisodesCubit(sl())..fetchEpisodes(widget.show.id),
-                    child: BlocBuilder<EpisodesCubit, EpisodesState>(
+                    child: BlocConsumer<EpisodesCubit, EpisodesState>(
+                      listener: (context, state) {
+                        if (state is EpisodesLoadedState) {
+                          _selectedSeason = state.episodes.first.season;
+                        }
+                      },
                       builder: (context, state) {
                         if (state is EpisodesLoadingState) {
                           return const Center(
@@ -120,8 +99,16 @@ class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
                         if (state is EpisodesLoadedState) {
                           final seasonedEpisodes = state.episodes
                               .where((element) =>
-                                  element.season == _selectedSeason)
+                                  element.season ==
+                                  (_selectedSeason ??
+                                      state.episodes.first.season))
                               .toList();
+
+                          final uniqueSeasons = <int>{};
+
+                          for (var episode in state.episodes) {
+                            uniqueSeasons.add(episode.season);
+                          }
 
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,11 +139,12 @@ class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
                                       color: Colors.white,
                                     ),
                                     items: List.generate(
-                                      state.episodes.last.season,
+                                      uniqueSeasons.length,
                                       (index) => DropdownMenuItem(
-                                        value: index + 1,
+                                        value: uniqueSeasons.elementAt(index),
                                         child: MyText(
-                                          intl.season((index + 1).toString()),
+                                          intl.season(
+                                              uniqueSeasons.elementAt(index)),
                                           style: MyTextStyle(
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -165,7 +153,7 @@ class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
                                     ),
                                     onChanged: (season) {
                                       setState(() {
-                                        _selectedSeason = season ?? 1;
+                                        _selectedSeason = season;
                                         _episodesController.animateTo(
                                           0,
                                           duration: kThemeAnimationDuration,
@@ -208,7 +196,7 @@ class _TVShowDetailsScreenState extends State<TVShowDetailsScreen> {
                   const SizedBox(height: 24),
                 ],
               ),
-              _backArrow(),
+              const StackBackArrow(),
             ],
           ),
         ),
