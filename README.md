@@ -30,6 +30,10 @@ To run the app:
 
 3. Run the app with `flutter run`. It works on both Android and iOS!
 
+### Testing from APK
+
+It's possible to test the app directly without compiling. Simply open the pre-generated release APK available in this project's `test-apk` folder using any Android device; `test-apk` can be found in the repository's root folder. Please keep in mind that it may be necessary to [enable installing APKs from unknown sources](https://www.wikihow.com/Allow-Apps-from-Unknown-Sources-on-Android) in you phone settings.
+
 ### Flutter Version
 
 ```
