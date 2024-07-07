@@ -46,7 +46,7 @@ class FadingImageBackground extends StatelessWidget {
               )
             : CachedNetworkImage(
                 imageUrl: image!.original,
-                progressIndicatorBuilder: (context, url, progress) => SizedBox(
+                placeholder: (context, url) => SizedBox(
                   height:
                       MediaQuery.sizeOf(context).height * imageHeightPercentage,
                 ),

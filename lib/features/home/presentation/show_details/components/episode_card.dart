@@ -72,7 +72,7 @@ class EpisodeCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 4,
+            bottom: 6,
             left: 12,
             right: 12,
             child: Container(

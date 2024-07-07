@@ -44,19 +44,11 @@ class _ListShowsScreenState extends State<ListShowsScreen> {
                         top: 24.0,
                       ),
                       child: SearchBar(
-                        leading: Icon(Icons.search,
-                            color: AppColors.containerBackground
-                                .withOpacity(0.55)),
-                        trailing: [
-                          IconButton(
-                              onPressed: () {
-                                _queryController.clear();
-                                context.read<ShowsCubit>().fetchShows();
-                              },
-                              icon: Icon(Icons.close,
-                                  color: AppColors.containerBackground
-                                      .withOpacity(0.55)))
-                        ],
+                        leading: Icon(
+                          Icons.search,
+                          color:
+                              AppColors.containerBackground.withOpacity(0.55),
+                        ),
                         hintText: intl.searchHint,
                         controller: _queryController,
                         onChanged: (query) {
